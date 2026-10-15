@@ -1191,5 +1191,5 @@ document.querySelectorAll('.level').forEach(card => {
 
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
-</body>
+</body><div id="modal" class="modal hidden" rol
 </html>
