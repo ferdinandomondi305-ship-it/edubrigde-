@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2558d8">
+<meta name="description" content="EduBridge — learn, practise and grow from early learning to university.">
+<title>EduBridge | Learn Without Limits</title>
+<style>
+:root{--blue:#2558d8;--blue2:#eaf0ff;--ink:#17233c;--muted:#68758e;--bg:#f7f9ff;--white:#fff;--line:#e3e9f5;--shadow:0 12px 35px rgba(31,57,111,.09)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1120px,92%);margin:auto}
+.topbar{background:#14264a;color:#eaf0ff;text-align:center;padding:8px 12px;font-size:.85rem}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:1.35rem;letter-spacing:-.5px;color:var(--ink);text-decoration:none}
+.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--blue),#6e8fff);display:grid;place-items:center;color:#fff;font-size:1.25rem;box-shadow:0 7px 18px #2558d833}
+.navlinks{display:flex;gap:22px;align-items:center}
+.navlinks a{color:var(--muted);text-decoration:none;font-weight:650;font-size:.94rem}
+.navlinks a:hover{color:var(--blue)}
+.btn{border:0;border-radius:13px;padding:12px 17px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px)}
+.primary{background:var(--blue);color:#fff;box-shadow:0 8px 18px #2558d82b}
+.secondary{background:var(--blue2);color:var(--blue)}
+.hero{padding:42px 0 35px;background:radial-gradient(circle at 90% 10%,#dfe8ff 0,transparent 32%),linear-gradient(180deg,#fff,#f7f9ff)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:38px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:#e8f8f2;color:#087657;border-radius:99px;padding:7px 12px;font-weight:750;font-size:.82rem}
+.hero h1{font-size:clamp(2.35rem,5vw,4.15rem);line-height:1.08;letter-spacing:-2px;margin:18px 0}
+.hero h1 span{color:var(--blue)}
+.hero p{font-size:1.08rem;color:var(--muted);max-width:590px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:25px 0}
+.trust{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.88rem;font-weight:650}
+.hero-art{position:relative;min-height:330px;border-radius:32px;background:linear-gradient(145deg,#dfe8ff,#f3eaff);display:grid;place-items:center;overflow:hidden}
+.orbit{position:absolute;width:260px;height:260px;border:2px dashed #91a9f0;border-radius:50%}
+.book{position:relative;z-index:1;width:180px;height:190px;background:#fff;border-radius:20px;box-shadow:0 22px 45px #213c7d26;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-5deg);border:1px solid #edf0fa}
+.book .big{font-size:3.5rem}
+.book strong{font-size:1.1rem;color:var(--blue)}
+.float{position:absolute;background:#fff;border-radius:16px;padding:12px 15px;box-shadow:var(--shadow);font-weight:750;font-size:.9rem}
+.f1{top:35px;left:22px}.f2{right:20px;top:90px}.f3{bottom:28px;left:30px}
+.section{padding:48px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}
+.section-head h2{margin:0;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.8px}
+.section-head p{margin:6px 0 0;color:var(--muted)}
+.levels{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.level,.subject,.lesson,.feature{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:19px;box-shadow:0 5px 20px #1b377508}
+.level{transition:.18s;cursor:pointer;text-align:left}
+.level:hover,.level.active{border-color:#8da8ff;box-shadow:var(--shadow);transform:translateY(-3px)}
+.level .emoji{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:1.55rem;background:var(--blue2);margin-bottom:12px}
+.level h3,.subject h3,.lesson h3{margin:0 0 5px;font-size:1.02rem}
+.level p,.subject p,.lesson p{color:var(--muted);font-size:.88rem;margin:0}
+.filterbar{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
+.field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:170px}
+.field label{font-size:.83rem;font-weight:750;color:#45536e}
+.field select,.field input{width:100%;border:1px solid #dce3f1;border-radius:12px;background:#fff;padding:12px 13px;color:var(--ink);outline:none}
+.field select:focus,.field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2558d81a}
+.subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.subject{display:flex;gap:14px;align-items:flex-start}
+.subject-icon{flex:0 0 48px;width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:1.45rem;background:#e9f8f3}
+.subject:nth-child(2) .subject-icon{background:#fff2d9}
+.subject:nth-child(3) .subject-icon{background:#eee8ff}
+.subject:nth-child(4) .subject-icon{background:#e3f3ff}
+.subject:nth-child(5) .subject-icon{background:#ffe9ef}
+.subject:nth-child(6) .subject-icon{background:#edf4db}
+.subject .btn{margin-top:12px;padding:9px 12px;font-size:.85rem}
+.lesson-area{background:#eef3ff;border-radius:26px;padding:25px}
+.lesson-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lesson{box-shadow:none}
+.tag{display:inline-block;background:#e8efff;color:var(--blue);font-size:.75rem;font-weight:800;padding:4px 9px;border-radius:99px;margin-bottom:10px}
+.lesson .btn{margin-top:13px}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.feature .emoji{font-size:1.7rem}
+.feature h3{margin:8px 0 4px}
+.feature p{margin:0;color:var(--muted);font-size:.92rem}
+.callout{background:linear-gradient(120deg,#214ec5,#6d62dd);color:#fff;border-radius:26px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.callout p{color:#e6eaff;margin:6px 0 0}
+.callout .btn{background:#fff;color:#244fc1;white-space:nowrap}
+.footer{margin-top:45px;background:#14264a;color:#eaf0ff;padding:30px 0}
+.footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.footer p{margin:6px 0;color:#bac7e4;font-size:.88rem}
+.notice{color:var(--muted);font-size:.83rem;margin-top:14px}
+.hidden{display:none!important}
+.modal{position:fixed;inset:0;background:#101a32aa;display:grid;place-items:center;padding:16px;z-index:10}
+.modal-card{background:#fff;border-radius:22px;padding:24px;width:min(570px,100%);max-height:90vh;overflow:auto;box-shadow:0 25px 80px #07132b44}
+.modal-head{display:flex;justify-content:space-between;gap:15px;align-items:start}
+.close{border:0;background:#eef2fb;border-radius:10px;width:38px;height:38px;font-size:1.2rem}
+.answer{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px;margin:9px 0}
+.answer:hover{border-color:var(--blue);background:#f4f7ff}
+.answer.correct{border-color:#15956e;background:#e9f8f2}
+.answer.wrong{border-color:#d65353;background:#fff0f0}
+.feedback{font-weight:750;margin:12px 0}
+@media(max-width:850px){
+.hero-grid{grid-template-columns:1fr}
+.hero-art{min-height:270px}
+.levels{grid-template-columns:repeat(3,1fr)}
+.subjects{grid-template-columns:repeat(2,1fr)}
+.navlinks{gap:12px}
+.navlinks a:not(.btn){display:none}
+}
+@media(max-width:560px){
+.hero{padding-top:25px}
+.hero-art{min-height:240px}
+.levels{grid-template-columns:repeat(2,1fr)}
+.subjects,.lesson-grid,.feature-grid{grid-template-columns:1fr}
+.section{padding:35px 0}
+.section-head,.callout{align-items:start;flex-direction:column}
+.level{padding:14px}
+.hero h1{letter-spacing:-1.2px}
+.nav .primary{padding:10px 12px}
+.trust{gap:10px}
+}
+.units{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.unit{background:#fff;border:1px solid var(--line);border-radius:20px;padding:19px;box-shadow:0 5px 20px #1b377508}
+.unit .code{font-size:.78rem;font-weight:800;color:var(--blue)}
+.unit h3{margin:4px 0 5px;font-size:1.02rem}
+.unit p{color:var(--muted);font-size:.88rem;margin:0}
+.unit .btn{margin-top:12px;padding:9px 12px;font-size:.85rem}
+@media(max-width:850px){.units{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.units{grid-template-columns:1fr}}
+.group-title{margin:28px 0 12px;font-size:1.15rem}
+.bot-fab{position:fixed;right:16px;bottom:16px;z-index:9;border:0;border-radius:99px;background:var(--blue);color:#fff;font-weight:750;padding:13px 18px;box-shadow:0 10px 28px #2558d855}
+.bot-card{background:#fff;border-radius:22px;width:min(560px,100%);height:min(700px,92vh);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 25px 80px #07132b44}
+.bot-head{padding:14px 18px;background:var(--blue);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.bot-head small{display:block;color:#dbe6ff;font-size:.78rem}
+.bot-head .close{background:#ffffff26;color:#fff}
+.bot-log{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f4f7ff}
+.msg{max-width:92%;padding:11px 14px;border-radius:16px;font-size:.93rem;line-height:1.5}
+.msg p{margin:0 0 8px}.msg p:last-child{margin:0}
+.msg.bot{background:#fff;border:1px solid var(--line);align-self:flex-start}
+.msg.me{background:var(--blue);color:#fff;align-self:flex-end}
+.bot-actions{padding:12px;border-top:1px solid var(--line);background:#fff;display:flex;flex-direction:column;gap:8px;max-height:48%;overflow:auto}
+.bot-actions select{width:100%;border:1px solid #dce3f1;border-radius:12px;padding:12px 13px;background:#fff;color:var(--ink)}
+.bot-actions .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.bot-intro{display:flex;gap:18px;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow)}
+.bot-intro h2{margin:0 0 6px}.bot-intro p{margin:0;color:var(--muted)}
+@media(max-width:560px){.bot-intro{flex-direction:column;align-items:stretch}}
+</style>
+</head>
+<body>
+<div class="topbar">🌍 Learn at your own pace — from your first lesson to university-level study.</div>
+
+<header class="wrap nav">
+  <a class="brand" href="#home"><span class="logo">E</span> EduBridge</a>
+  <nav class="navlinks">
+    <a href="#levels">Learning levels</a>
+    <a href="#subjects">Subjects</a>
+    <a href="#lessons">Try a lesson</a>
+    <a class="btn primary" href="#subjects">Start learning →</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">✨ Your journey. Your future.</span>
+      <h1>Make learning feel <span>possible.</span></h1>
+      <p>Explore lessons, practise important skills, and build confidence — whether you're just starting school or preparing for university.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#levels">Explore learning levels →</a>
+        <a class="btn secondary" href="#lessons">Try a free lesson</a>
+        <button class="btn secondary open-bot">🤖 Meet Study Bot</button>
+      </div>
+      <div class="trust">
+        <span>✓ Beginner-friendly</span>
+        <span>✓ Learn at your pace</span>
+        <span>✓ Made for mobile</span>
+      </div>
+    </div>
+    <div class="hero-art" aria-label="Illustration of learning resources">
+      <div class="orbit"></div>
+      <div class="book">
+        <span class="big">📚</span>
+        <strong>Learn &amp; grow</strong>
+        <span style="color:#68758e;font-size:.8rem">One step at a time</span>
+      </div>
+      <div class="float f1">🧠 Keep curious</div>
+      <div class="float f2">⭐ Practice daily</div>
+      <div class="float f3">🎯 Reach your goals</div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="studybot">
+  <div class="bot-intro">
+    <div>
+      <h2>🤖 Meet your Study Bot</h2>
+      <p>Choose any unit. The bot gives you the lesson to read first, then asks questions and awards marks.</p>
+      <p class="notice">The Study Bot is a guided tutor built into this page. It is not a live AI model yet.</p>
+    </div>
+    <button class="btn primary open-bot">Start with Study Bot</button>
+  </div>
+</section>
+
+<section class="section wrap" id="levels">
+  <div class="section-head"><div>
+    <h2>Where are you on your learning journey?</h2>
+    <p>Choose a level to explore learning pathways.</p>
+  </div></div>
+  <div class="levels" id="levelCards">
+    <button class="level active" data-level="All levels"><span class="emoji">🌈</span><h3>All levels</h3><p>Explore everything</p></button>
+    <button class="level" data-level="Kindergarten"><span class="emoji">🧸</span><h3>Kindergarten</h3><p>Play and discover</p></button>
+    <button class="level" data-level="Primary"><span class="emoji">✏️</span><h3>Primary</h3><p>Build foundations</p></button>
+    <button class="level" data-level="Secondary"><span class="emoji">🔭</span><h3>Secondary</h3><p>Grow your skills</p></button>
+    <button class="level" data-level="College & University"><span class="emoji">🎓</span><h3>College &amp; university</h3><p>Study in depth</p></button>
+  </div>
+  <p class="notice">Curriculum coverage and lesson libraries will grow over time. Choose your country below to help personalise your learning.</p>
+</section>
+
+<section class="section wrap" id="subjects">
+  <div class="section-head"><div>
+    <h2>Find your next subject</h2>
+    <p>Choose a country and level, or search for a subject.</p>
+  </div></div>
+
+  <div class="filterbar">
+    <div class="field">
+      <label for="country">Country / curriculum</label>
+      <select id="country">
+        <option value="International">International learning</option>
+        <option>Kenya</option><option>Uganda</option><option>Tanzania</option>
+        <option>Rwanda</option><option>Nigeria</option><option>South Africa</option>
+        <option>United Kingdom</option><option>United States</option><option>India</option>
+        <option>Other / not listed</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="levelSelect">Learning level</label>
+      <select id="levelSelect">
+        <option>All levels</option><option>Kindergarten</option><option>Primary</option>
+        <option>Secondary</option><option>College &amp; University</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="search">Search subjects</label>
+      <input id="search" type="search" placeholder="e.g. Biology, maths…">
+    </div>
+  </div>
+
+  <div class="subjects" id="subjectCards">
+    <article class="subject" data-name="mathematics maths numeracy" data-levels="Kindergarten,Primary,Secondary,College & University">
+      <div class="subject-icon">🔢</div>
+      <div><h3>Mathematics</h3><p>Numbers, patterns, sets and problem-solving.</p>
+      <button class="btn primary open-lesson" data-subject="Mathematics">Learn &amp; take quiz →</button></div>
+    </article>
+    <article class="subject" data-name="languages english communication literacy" data-levels="Kindergarten,Primary,Secondary,College & University">
+      <div class="subject-icon">🗣️</div>
+      <div><h3>Languages</h3><p>Reading, writing, grammar and communication.</p>
+      <button class="btn primary open-lesson" data-subject="Languages">Learn &amp; take quiz →</button></div>
+    </article>
+    <article class="subject" data-name="biology science plants animals cells genetics" data-levels="Primary,Secondary,College & University">
+      <div class="subject-icon">🧬</div>
+      <div><h3>Biology</h3><p>Cells, living organisms and the environment.</p>
+      <button class="btn primary open-lesson" data-subject="Biology">Learn &amp; take quiz →</button></div>
+    </article>
+    <article class="subject" data-name="chemistry matter reactions atoms" data-levels="Secondary,College & University">
+      <div class="subject-icon">⚗️</div>
+      <div><h3>Chemistry</h3><p>Matter, atoms, substances and reactions.</p>
+      <button class="btn primary open-lesson" data-subject="Chemistry">Learn &amp; take quiz →</button></div>
+    </article>
+    <article class="subject" data-name="physics energy forces motion electricity" data-levels="Primary,Secondary,College & University">
+      <div class="subject-icon">⚛️</div>
+      <div><h3>Physics</h3><p>Forces, energy, motion and the natural world.</p>
+      <button class="btn primary open-lesson" data-subject="Physics">Learn &amp; take quiz →</button></div>
+    </article>
+    <article class="subject" data-name="computer studies computing digital technology" data-levels="Primary,Secondary,College & University">
+      <div class="subject-icon">💻</div>
+      <div><h3>Computer Studies</h3><p>Computers, software and digital skills.</p>
+      <button class="btn primary open-lesson" data-subject="Computer Studies">Learn &amp; take quiz →</button></div>
+    </article>
+  </div>
+
+  <p id="noResults" class="notice hidden">No subjects match your search. Try another word or choose a different level.</p>
+  <p id="curriculumNote" class="notice">Choose a country to help personalise the subjects displayed.</p>
+</section>
+
+<section class="section wrap hidden" id="units">
+  <div class="section-head"><div>
+    <h2>University &amp; college fields of study</h2>
+    <p>Browse the main academic fields taught at universities worldwide.</p>
+  </div></div>
+  <h3 class="group-title">Humanities</h3>
+  <div class="units">
+    <article class="unit"><h3>Arts &amp; Visual Arts</h3><p>Fine art, art history, photography, design</p>
+    <button class="btn primary open-lesson" data-subject="Arts &amp; Visual Arts">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Performing Arts</h3><p>Music, theatre, dance, film studies</p>
+    <button class="btn primary open-lesson" data-subject="Performing Arts">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Language &amp; Literature</h3><p>Linguistics, rhetoric, creative writing, world languages</p>
+    <button class="btn primary open-lesson" data-subject="Language &amp; Literature">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Philosophy, Religion &amp; Ethics</h3><p>Epistemology, metaphysics, comparative religion, theology</p>
+    <button class="btn primary open-lesson" data-subject="Philosophy, Religion &amp; Ethics">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>History</h3><p>World history, archaeology, classical studies</p>
+    <button class="btn primary open-lesson" data-subject="History">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Law</h3><p>Jurisprudence, constitutional law, international law</p>
+    <button class="btn primary open-lesson" data-subject="Law">Learn &amp; take quiz →</button></article>
+  </div>
+  <h3 class="group-title">Social sciences</h3>
+  <div class="units">
+    <article class="unit"><h3>Anthropology &amp; Sociology</h3><p>Cultural studies, ethnography, social work</p>
+    <button class="btn primary open-lesson" data-subject="Anthropology &amp; Sociology">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Psychology</h3><p>Cognitive, clinical, developmental and social psychology</p>
+    <button class="btn primary open-lesson" data-subject="Psychology">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Economics &amp; Finance</h3><p>Macroeconomics, microeconomics, corporate finance, banking</p>
+    <button class="btn primary open-lesson" data-subject="Principles of Microeconomics">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Political Science &amp; International Relations</h3><p>Government, public policy, geopolitics</p>
+    <button class="btn primary open-lesson" data-subject="Political Science &amp; International Relations">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Business &amp; Management</h3><p>Marketing, accounting, human resources, logistics</p>
+    <button class="btn primary open-lesson" data-subject="Business &amp; Management">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Geography</h3><p>Human geography, physical geography, cartography</p>
+    <button class="btn primary open-lesson" data-subject="Geography">Learn &amp; take quiz →</button></article>
+  </div>
+  <h3 class="group-title">Natural sciences</h3>
+  <div class="units">
+    <article class="unit"><h3>Physical Sciences</h3><p>Physics, chemistry, astronomy, earth science, geology</p>
+    <button class="btn primary open-lesson" data-subject="Classical Mechanics">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Life Sciences (Biology)</h3><p>Botany, zoology, ecology, genetics, marine biology</p>
+    <button class="btn primary open-lesson" data-subject="Cell &amp; Molecular Biology">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Health &amp; Medical Sciences</h3><p>Medicine, nursing, public health, pharmacology</p>
+    <button class="btn primary open-lesson" data-subject="Health &amp; Medical Sciences">Learn &amp; take quiz →</button></article>
+  </div>
+  <h3 class="group-title">Formal & applied sciences</h3>
+  <div class="units">
+    <article class="unit"><h3>Mathematics</h3><p>Pure and applied mathematics, statistics, geometry, algebra</p>
+    <button class="btn primary open-lesson" data-subject="Calculus I">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Computer Science &amp; IT</h3><p>Software engineering, artificial intelligence, data science</p>
+    <button class="btn primary open-lesson" data-subject="Data Structures &amp; Algorithms">Learn &amp; take quiz →</button></article>
+    <article class="unit"><h3>Engineering</h3><p>Mechanical, civil, electrical, chemical and aerospace engineering</p>
+    <button class="btn primary open-lesson" data-subject="Engineering">Learn &amp; take quiz →</button></article>
+  </div>
+
+  <h3 class="group-title">Popular first-year units</h3>
+  <div class="units">
+    <article class="unit"><span class="code">MATH</span><h3>Calculus I</h3><p>Limits, derivatives and integrals.</p>
+    <button class="btn primary open-lesson" data-subject="Calculus I">Learn &amp; take quiz →</button></article>
+    <article class="unit"><span class="code">MATH</span><h3>Linear Algebra</h3><p>Vectors, matrices and linear systems.</p>
+    <button class="btn primary open-lesson" data-subject="Linear Algebra">Learn &amp; take quiz →</button></article>
+    <article class="unit"><span class="code">STAT</span><h3>Probability & Statistics</h3><p>Data, averages, probability and inference.</p>
+    <button class="btn primary open-lesson" data-subject="Probability & Statistics">Learn &amp; take quiz →</button></article>
+    <article class="unit"><span class="code">CS</span><h3>Introduction to Programming</h3><p>Variables, loops, functions and logic.</p>
+    <button class="btn primary open-lesson" data-subject="Introduction to Programming">Learn &amp; take quiz →</button></article>
+    <article class="unit"><span class="code">CS</span><h3>Data Structures & Algorithms</h3><p>Stacks, queues, trees and efficient code.</p>
+    <button class="btn primary open-lesson" data-subject="Data Structures & Algorithms">Learn &amp; take quiz →</button></article>
+    <article class="unit"><span class="code">CHEM</span><h3>General Chemistry</h3><p>Atoms, moles, bonding and reactions.</p>
+    <button class="btn primary open-lesson" data-subject="General Chemistry">Learn &amp; take quiz →</button></article>
+    <article class="unit"><span class="code">PHYS</span><h3>Classical Mechanics</h3><p>Motion, forces and Newton’s laws.</p>
+    <button class="btn primary open-lesson" data-subject="Classical Mechanics">Learn &amp; take quiz →</button></article>
+    <article class="unit"><span class="code">BIO</span><h3>Cell & Molecular Biology</h3><p>Cells, DNA, RNA and proteins.</p>
+    <button class="btn primary open-lesson" data-subject="Cell & Molecular Biology">Learn &amp; take quiz →</button></article>
+    <article class="unit"><span class="code">ECON</span><h3>Principles of Microeconomics</h3><p>Supply, demand and markets.</p>
+    <button class="btn primary open-lesson" data-subject="Principles of Microeconomics">Learn &amp; take quiz →</button></article>
+  </div>
+  <p class="notice">There is no single world register of fields or units. These follow the broad groupings used by most universities, so names and codes at your institution may differ.</p>
+</section>
+
+<section class="section wrap" id="lessons">
+  <div class="section-head"><div>
+    <h2>Start with a short lesson</h2>
+    <p>Read a simple explanation, then answer a quick question.</p>
+  </div></div>
+  <div class="lesson-area"><div class="lesson-grid">
+    <article class="lesson">
+      <span class="tag">MATHEMATICS · BEGINNER</span>
+      <h3>What is a set?</h3>
+      <p>A set is a well-defined collection of distinct objects. The objects are called elements or members.</p>
+      <button class="btn primary open-lesson" data-subject="Mathematics">Learn &amp; take quiz →</button>
+    </article>
+    <article class="lesson">
+      <span class="tag">BIOLOGY · BEGINNER</span>
+      <h3>What is a cell?</h3>
+      <p>A cell is the basic structural and functional unit of life. Some organisms have one cell; others have many cells.</p>
+      <button class="btn primary open-lesson" data-subject="Biology">Learn &amp; take quiz →</button>
+    </article>
+  </div></div>
+</section>
+
+<section class="section wrap">
+  <div class="section-head"><div>
+    <h2>Designed to help you keep going</h2>
+    <p>A simple starting point for a bigger learning experience.</p>
+  </div></div>
+  <div class="feature-grid">
+    <article class="feature"><span class="emoji">🪜</span><h3>Learn step by step</h3><p>Start with the basics and work toward harder ideas when you're ready.</p></article>
+    <article class="feature"><span class="emoji">📝</span><h3>Practise as you learn</h3><p>Use quick questions to check your understanding and learn from mistakes.</p></article>
+    <article class="feature"><span class="emoji">🌍</span><h3>Built for many learners</h3><p>Our goal is to support different ages, countries, curricula and learning needs.</p></article>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="callout">
+    <div>
+      <h2 style="margin:0">Small steps lead to big progress.</h2>
+      <p>Choose a subject and begin with one lesson today.</p>
+    </div>
+    <a class="btn" href="#subjects">Choose a subject →</a>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-row">
+    <div>
+      <a class="brand" href="#home" style="color:white"><span class="logo">E</span> EduBridge</a>
+      <p>Learn without limits. Grow with confidence.</p>
+    </div>
+    <div>
+      <strong>Explore</strong>
+      <p>
+        <a href="#levels" style="color:#bac7e4">Learning levels</a> ·
+        <a href="#subjects" style="color:#bac7e4">Subjects</a> ·
+        <a href="#lessons" style="color:#bac7e4">Lessons</a>
+      </p>
+      <p>© <span id="year"></span> EduBridge · Learning prototype</p>
+    </div>
+  </div>
+</footer>
+
+<button class="bot-fab open-bot" aria-label="Open Study Bot">🤖 Study Bot</button>
+
+<div id="bot" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="botTitle">
+  <div class="bot-card">
+    <div class="bot-head">
+      <div><strong id="botTitle">🤖 Study Bot</strong><small>Read first, then answer, then get your marks</small></div>
+      <button class="close" id="closeBot" aria-label="Close Study Bot">×</button>
+    </div>
+    <div id="botLog" class="bot-log" aria-live="polite"></div>
+    <div id="botActions" class="bot-actions"></div>
+  </div>
+</div>
+
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <span class="tag" id="modalTag">QUICK LESSON</span>
+        <h2 id="modalTitle" style="margin:0 0 8px">Lesson</h2>
+      </div>
+      <button class="close" id="closeModal" aria-label="Close lesson">×</button>
+    </div>
+    <div id="lessonText"></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+    <h3 id="questionText">Quick check</h3>
+    <div id="answers"></div>
+    <div id="feedback" class="feedback" aria-live="polite"></div>
+    <button id="nextQuestion" class="btn primary hidden">Try another question →</button>
+    <p class="notice">This prototype gives feedback in this browser. It does not yet create accounts or save scores online.</p>
+  </div>
+</div>
+
+<script>
+const lessonData = {
+  'Mathematics': {
+    tag: 'MATHEMATICS · BEGINNER', title: 'What is a set?',
+    text: `<p>A <strong>set</strong> is a well-defined collection of distinct objects. The objects are called <em>elements</em> or <em>members</em>.</p>
+      <p>Example: A = {1, 2, 3}. The number 2 belongs to A, written 2 ∈ A. The number 5 does not belong to A, written 5 ∉ A.</p>
+      <p><strong>Remember:</strong> in a set, repeated elements are written only once.</p>`,
+    questions: [
+      { q: 'Which option is a set of the first three positive integers?', a: ['{1, 2, 3}', '{one, many, some}', '{1, 1, 2, maybe}'], correct: 0, why: 'Correct! {1, 2, 3} is a clearly defined collection.' },
+      { q: 'If A = {2, 4, 6}, is 4 ∈ A?', a: ['Yes', 'No'], correct: 0, why: 'Correct! The symbol ∈ means “is an element of”.' }
+    ]
+  },
+  'Biology': {
+    tag: 'BIOLOGY · BEGINNER', title: 'What is a cell?',
+    text: `<p>A <strong>cell</strong> is the basic structural and functional unit of life. All living organisms are made of one or more cells.</p>
+      <p>Some organisms, such as many bacteria, are unicellular (one cell). Humans and plants are multicellular (many cells).</p>
+      <p>Many cells contain a cell membrane, cytoplasm and genetic material. Plant cells also typically have a cell wall, and many have chloroplasts.</p>`,
+    questions: [
+      { q: 'What is the basic unit of life?', a: ['An organ', 'A cell', 'A population'], correct: 1, why: 'Correct! The cell is the basic structural and functional unit of life.' },
+      { q: 'Which structure is typically found in plant cells but not animal cells?', a: ['Cell membrane', 'Cytoplasm', 'Cell wall'], correct: 2, why: 'Correct! Plant cells have a cell wall outside the cell membrane.' }
+    ]
+  },
+  'Languages': {
+    tag: 'LANGUAGES · BEGINNER', title: 'Building a clear sentence',
+    text: `<p>A sentence expresses a complete thought. In a simple English sentence, the <strong>subject</strong> tells us who or what the sentence is about, and the <strong>predicate</strong> tells us something about the subject.</p>
+      <p>Example: “The learner reads.” Subject: “The learner”. Predicate: “reads”. A sentence normally begins with a capital letter and ends with suitable punctuation.</p>`,
+    questions: [
+      { q: 'Which is a complete sentence?', a: ['The clever student', 'The student reads.', 'Because the lesson'], correct: 1, why: 'Correct! “The student reads.” expresses a complete thought.' }
+    ]
+  },
+  'Chemistry': {
+    tag: 'CHEMISTRY · BEGINNER', title: 'What is matter?',
+    text: `<p><strong>Matter</strong> is anything that has mass and occupies space. Common states of matter are solid, liquid and gas.</p>
+      <p>A solid generally keeps its shape and volume. A liquid keeps its volume but takes the shape of its container. A gas spreads out to fill its container.</p>`,
+    questions: [
+      { q: 'Which state of matter takes the shape of its container but keeps a fixed volume?', a: ['Solid', 'Liquid', 'Gas'], correct: 1, why: 'Correct! A liquid takes the shape of its container while maintaining a fixed volume.' }
+    ]
+  },
+  'Physics': {
+    tag: 'PHYSICS · BEGINNER', title: 'What is force?',
+    text: `<p>A <strong>force</strong> is a push or pull that can change an object’s motion or shape. Forces are measured in newtons (N).</p>
+      <p>A balanced force does not change an object’s motion. An unbalanced force can cause an object to speed up, slow down or change direction.</p>`,
+    questions: [
+      { q: 'What is the SI unit of force?', a: ['Joule', 'Newton', 'Watt'], correct: 1, why: 'Correct! Force is measured in newtons (N).' }
+    ]
+  },
+  'Computer Studies': {
+    tag: 'COMPUTER STUDIES · BEGINNER', title: 'Hardware and software',
+    text: `<p><strong>Hardware</strong> refers to the physical parts of a computer, such as a keyboard, screen or processor. <strong>Software</strong> refers to programs and instructions that tell the computer what to do.</p>
+      <p>A keyboard is hardware. A word-processing application is software.</p>`,
+    questions: [
+      { q: 'Which is an example of hardware?', a: ['A keyboard', 'A spreadsheet app', 'A web browser'], correct: 0, why: 'Correct! A keyboard is a physical computer component.' }
+    ]
+  },
+  'Calculus I': {
+    tag: 'CALCULUS I · UNIT', title: 'Derivatives',
+    text: `<p>The <strong>derivative</strong> of a function measures its rate of change. The power rule says: if f(x) = xⁿ, then f′(x) = n·xⁿ⁻¹.</p><p>Example: the derivative of x² is 2x.</p>`,
+    questions: [{ q: 'What is the derivative of x³?', a: ['3x²', 'x²', '3x'], correct: 0, why: 'Correct! By the power rule, d/dx x³ = 3x².' }]
+  },
+  'Linear Algebra': {
+    tag: 'LINEAR ALGEBRA · UNIT', title: 'Determinants',
+    text: `<p>A <strong>matrix</strong> is a rectangular array of numbers. For a 2×2 matrix with rows (a, b) and (c, d), the <strong>determinant</strong> is ad − bc.</p>`,
+    questions: [{ q: 'What is the determinant of the matrix with rows (1, 2) and (3, 4)?', a: ['−2', '2', '10'], correct: 0, why: 'Correct! (1×4) − (2×3) = −2.' }]
+  },
+  'Probability & Statistics': {
+    tag: 'STATISTICS · UNIT', title: 'Mean and probability',
+    text: `<p>The <strong>mean</strong> is the sum of values divided by how many there are. A <strong>probability</strong> is a number from 0 to 1 that measures how likely an event is.</p>`,
+    questions: [{ q: 'What is the mean of 2, 4, 6 and 8?', a: ['4', '5', '6'], correct: 1, why: 'Correct! (2+4+6+8) ÷ 4 = 5.' }]
+  },
+  'Introduction to Programming': {
+    tag: 'PROGRAMMING · UNIT', title: 'Variables and loops',
+    text: `<p>A <strong>variable</strong> stores a value. A <strong>loop</strong> repeats instructions. A <strong>function</strong> is a reusable block of code that can take inputs and return an output.</p>`,
+    questions: [{ q: 'Which programming idea repeats instructions several times?', a: ['A loop', 'A comment', 'A variable'], correct: 0, why: 'Correct! Loops repeat instructions.' }]
+  },
+  'Data Structures & Algorithms': {
+    tag: 'DATA STRUCTURES · UNIT', title: 'Stacks and queues',
+    text: `<p>A <strong>stack</strong> is last-in, first-out (LIFO), like a pile of plates. A <strong>queue</strong> is first-in, first-out (FIFO), like people waiting in line.</p>`,
+    questions: [{ q: 'Which data structure follows first-in, first-out order?', a: ['Stack', 'Queue', 'Tree'], correct: 1, why: 'Correct! A queue serves the oldest item first.' }]
+  },
+  'General Chemistry': {
+    tag: 'CHEMISTRY · UNIT', title: 'The mole',
+    text: `<p>A <strong>mole</strong> is the amount of substance containing about 6.022 × 10²³ particles. This number is called Avogadro’s constant.</p>`,
+    questions: [{ q: 'Approximately how many particles are in one mole?', a: ['6.022 × 10²³', '3.14 × 10⁸', '1.6 × 10⁻¹⁹'], correct: 0, why: 'Correct! That is Avogadro’s constant.' }]
+  },
+  'Classical Mechanics': {
+    tag: 'MECHANICS · UNIT', title: 'Newton’s second law',
+    text: `<p>Newton’s second law states that <strong>F = ma</strong>: the net force on an object equals its mass times its acceleration. Force is measured in newtons (N).</p>`,
+    questions: [{ q: 'A 2 kg object accelerates at 3 m/s². What is the net force?', a: ['5 N', '6 N', '1.5 N'], correct: 1, why: 'Correct! F = 2 × 3 = 6 N.' }]
+  },
+  'Cell & Molecular Biology': {
+    tag: 'MOLECULAR BIOLOGY · UNIT', title: 'The central dogma',
+    text: `<p>Genetic information flows from <strong>DNA</strong> to <strong>RNA</strong> to <strong>protein</strong>. Making RNA from DNA is called transcription. Making protein from mRNA is called translation.</p>`,
+    questions: [{ q: 'Which process makes mRNA from a DNA template?', a: ['Translation', 'Transcription', 'Replication'], correct: 1, why: 'Correct! Transcription produces mRNA.' }]
+  },
+  'Principles of Microeconomics': {
+    tag: 'ECONOMICS · UNIT', title: 'Supply and demand',
+    text: `<p>The <strong>law of demand</strong> says that, other things equal, when the price of a good rises, the quantity demanded falls. The <strong>law of supply</strong> says that higher prices encourage producers to supply more.</p>`,
+    questions: [{ q: 'If the price of a good rises and all else is equal, what happens to quantity demanded?', a: ['It rises', 'It falls', 'It stays the same'], correct: 1, why: 'Correct! This is the law of demand.' }]
+  },
+  'Arts & Visual Arts': {
+    tag: 'VISUAL ARTS · FIELD', title: 'Elements of art',
+    text: `<p>Artists work with the <strong>elements of art</strong>: line, shape, colour, value, texture, form and space. <strong>Value</strong> describes how light or dark a colour is.</p>`,
+    questions: [{ q: 'Which element of art describes how light or dark a colour is?', a: ['Texture', 'Value', 'Line'], correct: 1, why: 'Correct! Value is lightness or darkness.' }]
+  },
+  'Performing Arts': {
+    tag: 'PERFORMING ARTS · FIELD', title: 'Elements of music',
+    text: `<p>Music is built from <strong>rhythm</strong> (timing), <strong>melody</strong> (a tune), <strong>harmony</strong> (notes sounding together) and <strong>dynamics</strong> (how loud or soft it is).</p>`,
+    questions: [{ q: 'Which element of music describes how loud or soft it is?', a: ['Dynamics', 'Melody', 'Rhythm'], correct: 0, why: 'Correct! Dynamics describe loudness.' }]
+  },
+  'Language & Literature': {
+    tag: 'LANGUAGE & LITERATURE · FIELD', title: 'What is linguistics?',
+    text: `<p><strong>Linguistics</strong> is the scientific study of language. <strong>Phonetics</strong> studies speech sounds, <strong>syntax</strong> studies sentence structure and <strong>semantics</strong> studies meaning.</p>`,
+    questions: [{ q: 'Which branch of linguistics studies sentence structure?', a: ['Phonetics', 'Syntax', 'Semantics'], correct: 1, why: 'Correct! Syntax is about how words form sentences.' }]
+  },
+  'Philosophy, Religion & Ethics': {
+    tag: 'PHILOSOPHY · FIELD', title: 'Branches of philosophy',
+    text: `<p><strong>Epistemology</strong> studies knowledge and how we know things. <strong>Metaphysics</strong> studies the nature of reality. <strong>Ethics</strong> studies right and wrong.</p>`,
+    questions: [{ q: 'Which branch of philosophy studies the nature of knowledge?', a: ['Ethics', 'Epistemology', 'Aesthetics'], correct: 1, why: 'Correct! Epistemology is the theory of knowledge.' }]
+  },
+  'History': {
+    tag: 'HISTORY · FIELD', title: 'Primary and secondary sources',
+    text: `<p>Historians use evidence. A <strong>primary source</strong> comes from the time being studied, such as a diary, letter or photograph. A <strong>secondary source</strong> interprets the past later, such as a textbook.</p>`,
+    questions: [{ q: 'Which is a primary source about a historical event?', a: ['A diary written during the event', 'A modern textbook', 'An encyclopedia article'], correct: 0, why: 'Correct! A diary written at the time is a primary source.' }]
+  },
+  'Law': {
+    tag: 'LAW · FIELD', title: 'The rule of law',
+    text: `<p>The <strong>rule of law</strong> is the principle that everyone, including the government, is subject to the law and that laws are applied fairly. A <strong>constitution</strong> sets out how a state is organised and the rights of its people.</p>`,
+    questions: [{ q: 'Which principle says no one is above the law?', a: ['Rule of law', 'Majority rule', 'Executive privilege'], correct: 0, why: 'Correct! That is the rule of law.' }]
+  },
+  'Anthropology & Sociology': {
+    tag: 'ANTHROPOLOGY & SOCIOLOGY · FIELD', title: 'Studying societies',
+    text: `<p><strong>Anthropology</strong> studies human cultures and societies. <strong>Sociology</strong> studies social groups and institutions. <strong>Ethnography</strong> is a method where researchers spend time within a community to understand its culture.</p>`,
+    questions: [{ q: 'Which method involves living within a community to study its culture?', a: ['Ethnography', 'Census', 'Laboratory test'], correct: 0, why: 'Correct! Ethnography is immersive fieldwork.' }]
+  },
+  'Psychology': {
+    tag: 'PSYCHOLOGY · FIELD', title: 'Classical conditioning',
+    text: `<p><strong>Psychology</strong> is the scientific study of mind and behaviour. In <strong>classical conditioning</strong>, a neutral signal becomes linked with a response. Ivan Pavlov showed this in experiments with dogs.</p>`,
+    questions: [{ q: 'Who is associated with classical conditioning experiments with dogs?', a: ['Sigmund Freud', 'Ivan Pavlov', 'Jean Piaget'], correct: 1, why: 'Correct! Pavlov studied classical conditioning.' }]
+  },
+  'Political Science & International Relations': {
+    tag: 'POLITICAL SCIENCE · FIELD', title: 'Branches of government',
+    text: `<p>Many governments divide power among three branches: the <strong>legislature</strong> makes laws, the <strong>executive</strong> carries them out, and the <strong>judiciary</strong> interprets them. This is called the separation of powers.</p>`,
+    questions: [{ q: 'Which branch of government makes laws?', a: ['Judiciary', 'Legislature', 'Executive'], correct: 1, why: 'Correct! The legislature makes laws.' }]
+  },
+  'Business & Management': {
+    tag: 'BUSINESS · FIELD', title: 'Accounting equation',
+    text: `<p>The <strong>accounting equation</strong> is: Assets = Liabilities + Equity. In marketing, the <strong>4Ps</strong> are product, price, place and promotion.</p>`,
+    questions: [{ q: 'A business has assets of 100 and liabilities of 60. What is its equity?', a: ['40', '160', '60'], correct: 0, why: 'Correct! Equity = 100 − 60 = 40.' }]
+  },
+  'Geography': {
+    tag: 'GEOGRAPHY · FIELD', title: 'Latitude and longitude',
+    text: `<p><strong>Latitude</strong> measures distance north or south of the Equator. <strong>Longitude</strong> measures distance east or west of the Prime Meridian. <strong>Cartography</strong> is the making of maps.</p>`,
+    questions: [{ q: 'What does latitude measure?', a: ['Distance north or south of the Equator', 'Distance east or west of the Prime Meridian', 'Height above sea level'], correct: 0, why: 'Correct! Latitude is measured from the Equator.' }]
+  },
+  'Health & Medical Sciences': {
+    tag: 'HEALTH SCIENCES · FIELD', title: 'Vital signs',
+    text: `<p><strong>Vital signs</strong> show how the body is functioning: body temperature, pulse rate, breathing rate and blood pressure. <strong>Pharmacology</strong> studies how drugs affect the body.</p>`,
+    questions: [{ q: 'Which of these is a vital sign?', a: ['Pulse rate', 'Height', 'Eye colour'], correct: 0, why: 'Correct! Pulse rate is a vital sign.' }]
+  },
+  'Engineering': {
+    tag: 'ENGINEERING · FIELD', title: 'Stress',
+    text: `<p>In engineering, <strong>stress</strong> is force divided by the area it acts on: stress = F ÷ A. It is measured in pascals (Pa), where 1 Pa = 1 N/m².</p>`,
+    questions: [{ q: 'A force of 100 N acts on an area of 2 m². What is the stress?', a: ['200 Pa', '50 Pa', '102 Pa'], correct: 1, why: 'Correct! 100 ÷ 2 = 50 Pa.' }]
+  }
+};
+// More questions so every unit has several marks. Format: [unit, question, 'A|B|C', correctIndex, explanation]
+[
+['Mathematics','How many elements are in the set {a, b, c, d}?','3|4|5',1,'The set has four distinct elements.'],
+['Biology','Which organelle is the site of photosynthesis?','Mitochondrion|Chloroplast|Nucleus',1,'Photosynthesis takes place in chloroplasts.'],
+['Languages','Which word is the verb in “The learner reads.”?','The|learner|reads',2,'“reads” is the action word.'],
+['Languages','What should a sentence normally begin with?','A capital letter|A number|A comma',0,'Sentences normally begin with a capital letter.'],
+['Chemistry','Which state of matter spreads out to fill its container?','Solid|Liquid|Gas',2,'A gas spreads to fill the space available.'],
+['Chemistry','Which state of matter keeps its own shape?','Solid|Liquid|Gas',0,'A solid generally keeps its shape and volume.'],
+['Physics','Which kind of force can make an object speed up, slow down or change direction?','Balanced force|Unbalanced force|No force',1,'An unbalanced force changes motion.'],
+['Physics','A force is best described as…','A push or pull|A colour|A temperature',0,'A force is a push or pull.'],
+['Computer Studies','Which of these is software?','A mouse|A word processor|A monitor',1,'Software is programs and instructions.'],
+['Computer Studies','The physical parts of a computer are called…','Hardware|Software|Data',0,'Hardware means the physical components.'],
+['Calculus I','What is the derivative of x²?','2x|x|2',0,'By the power rule, d/dx x² = 2x.'],
+['Calculus I','A derivative measures a function’s…','Area|Rate of change|Length',1,'Derivatives measure rate of change.'],
+['Linear Algebra','How many rows and columns does a 2×3 matrix have?','2 rows and 3 columns|3 rows and 2 columns|2 rows and 2 columns',0,'An m×n matrix has m rows and n columns.'],
+['Linear Algebra','The determinant of the matrix with rows (a, b) and (c, d) is…','ad − bc|ac − bd|ab − cd',0,'The 2×2 determinant is ad − bc.'],
+['Probability & Statistics','A probability is always a number between…','0 and 1|1 and 10|−1 and 1',0,'Probabilities range from 0 (impossible) to 1 (certain).'],
+['Probability & Statistics','What is the probability of heads on one fair coin toss?','1/2|1/3|1',0,'There are two equally likely outcomes.'],
+['Introduction to Programming','What does a variable do?','Stores a value|Prints a page|Turns off the computer',0,'A variable stores a value.'],
+['Introduction to Programming','What is a function?','A reusable block of code|A type of keyboard|A syntax error',0,'A function is reusable code that can take inputs and return output.'],
+['Data Structures & Algorithms','Which structure is last-in, first-out?','Queue|Stack|Array',1,'A stack is LIFO, like a pile of plates.'],
+['Data Structures & Algorithms','People waiting in line best match which structure?','Stack|Queue|Tree',1,'A queue is first-in, first-out.'],
+['General Chemistry','What is the chemical symbol for sodium?','So|Na|S',1,'Sodium’s symbol is Na.'],
+['General Chemistry','What is the chemical formula of water?','H₂O|CO₂|NaCl',0,'Water is two hydrogen atoms and one oxygen atom.'],
+['Classical Mechanics','What is the SI unit of force?','Joule|Newton|Watt',1,'Force is measured in newtons.'],
+['Classical Mechanics','A 5 kg object accelerates at 2 m/s². What is the net force?','7 N|10 N|2.5 N',1,'F = ma = 5 × 2 = 10 N.'],
+['Cell & Molecular Biology','Making protein from mRNA is called…','Transcription|Translation|Replication',1,'Translation builds protein from mRNA.'],
+['Cell & Molecular Biology','Which molecule carries genetic information in most organisms?','DNA|ATP|Glucose',0,'DNA stores genetic information.'],
+['Principles of Microeconomics','If a good’s price falls and all else is equal, quantity demanded usually…','Rises|Falls|Stays the same',0,'This is the law of demand.'],
+['Principles of Microeconomics','The law of supply says higher prices usually encourage producers to…','Supply more|Supply less|Stop producing',0,'Higher prices make supplying more attractive.'],
+['Arts & Visual Arts','Which of these is NOT an element of art?','Line|Texture|Tempo',2,'Tempo is a music term.'],
+['Arts & Visual Arts','Which element describes the surface quality of an object?','Texture|Value|Shape',0,'Texture is how a surface looks or feels.'],
+['Performing Arts','Notes sounding together create…','Harmony|Rhythm|Dynamics',0,'Harmony is notes played together.'],
+['Performing Arts','Which element of music is about timing and beat?','Rhythm|Melody|Harmony',0,'Rhythm is the pattern of timing.'],
+['Language & Literature','Which branch of linguistics studies the meaning of words?','Phonetics|Syntax|Semantics',2,'Semantics is the study of meaning.'],
+['Language & Literature','Which branch of linguistics studies speech sounds?','Phonetics|Semantics|Syntax',0,'Phonetics studies speech sounds.'],
+['Philosophy, Religion & Ethics','Which branch of philosophy studies right and wrong?','Ethics|Metaphysics|Epistemology',0,'Ethics studies right and wrong.'],
+['Philosophy, Religion & Ethics','Metaphysics studies…','The nature of reality|Weather|Money',0,'Metaphysics asks what reality is like.'],
+['History','Which is a secondary source?','A letter written at the time|A modern history textbook|A photograph of the event',1,'A textbook interprets the past later.'],
+['History','Archaeology studies the past mainly through…','Material remains|Opinion polls|Weather forecasts',0,'Archaeologists study objects and remains.'],
+['Law','A constitution sets out…','How a state is organised and people’s rights|A shopping list|Weather data',0,'It describes how the state works and protects rights.'],
+['Law','Which field studies the philosophy of law?','Jurisprudence|Geography|Botany',0,'Jurisprudence is the theory of law.'],
+['Anthropology & Sociology','Sociology studies…','Social groups and institutions|Rocks|Chemicals',0,'Sociology looks at society.'],
+['Anthropology & Sociology','Anthropology is the study of…','Human cultures and societies|Stars|Plants',0,'Anthropology studies people and cultures.'],
+['Psychology','Psychology is the scientific study of…','Mind and behaviour|Rocks|Markets',0,'Psychology studies mind and behaviour.'],
+['Psychology','Which animal did Pavlov use in his famous experiments?','Dogs|Cats|Birds',0,'Pavlov studied dogs.'],
+['Political Science & International Relations','Which branch of government carries out laws?','Executive|Legislature|Judiciary',0,'The executive applies and enforces laws.'],
+['Political Science & International Relations','Which branch of government interprets laws?','Judiciary|Executive|Legislature',0,'Courts (the judiciary) interpret laws.'],
+['Business & Management','Which is one of the 4Ps of marketing?','Promotion|Profit|Payroll',0,'The 4Ps are product, price, place and promotion.'],
+['Business & Management','In the accounting equation, Assets = Liabilities + ?','Equity|Revenue|Tax',0,'Assets = Liabilities + Equity.'],
+['Geography','Longitude measures distance…','East or west of the Prime Meridian|North or south of the Equator|Above sea level',0,'Longitude is measured from the Prime Meridian.'],
+['Geography','What is cartography?','Map-making|Rock study|Weather forecasting',0,'Cartography is the making of maps.'],
+['Health & Medical Sciences','Pharmacology studies…','How drugs affect the body|Bones only|Maps',0,'Pharmacology is the study of drugs and their effects.'],
+['Health & Medical Sciences','Which of these is a vital sign?','Blood pressure|Shoe size|Hair colour',0,'Blood pressure is a vital sign.'],
+['Engineering','Stress is force divided by…','Area|Mass|Time',0,'Stress = F ÷ A.'],
+['Engineering','A force of 60 N acts on an area of 3 m². What is the stress?','20 Pa|180 Pa|57 Pa',0,'60 ÷ 3 = 20 Pa.']
+].forEach(([u,q,a,c,why]) => lessonData[u].questions.push({ q, a: a.split('|'), correct: c, why }));
+
+const clean = w => w.replace(/^Correct!\s*/, '');
+
+let activeLesson = null;
+let questionIndex = 0;
+const modal = document.getElementById('modal');
+
+function closeModal() {
+  modal.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function openLesson(subject) {
+  activeLesson = lessonData[subject] || lessonData['Mathematics'];
+  questionIndex = 0;
+  document.getElementById('modalTag').textContent = activeLesson.tag;
+  document.getElementById('modalTitle').textContent = activeLesson.title;
+  document.getElementById('lessonText').innerHTML = activeLesson.text;
+  showQuestion();
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function showQuestion() {
+  const q = activeLesson.questions[questionIndex % activeLesson.questions.length];
+  const box = document.getElementById('answers');
+  const feedback = document.getElementById('feedback');
+  const next = document.getElementById('nextQuestion');
+
+  document.getElementById('questionText').textContent = 'Quick check: ' + q.q;
+  box.innerHTML = '';
+  feedback.textContent = '';
+  next.classList.add('hidden');
+
+  q.a.forEach((answer, i) => {
+    const b = document.createElement('button');
+    b.className = 'answer';
+    b.textContent = String.fromCharCode(65 + i) + '. ' + answer;
+    b.onclick = () => {
+      [...box.children].forEach(x => x.disabled = true);
+      if (i === q.correct) {
+        b.classList.add('correct');
+        feedback.textContent = '✅ Correct! ' + clean(q.why);
+      } else {
+        b.classList.add('wrong');
+        box.children[q.correct].classList.add('correct');
+        feedback.textContent = 'Not quite. ' + clean(q.why);
+      }
+      next.classList.remove('hidden');
+    };
+    box.appendChild(b);
+  });
+}
+
+document.querySelectorAll('.open-lesson').forEach(b =>
+  b.addEventListener('click', () => openLesson(b.dataset.subject))
+);
+document.getElementById('closeModal').onclick = closeModal;
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.getElementById('nextQuestion').onclick = () => { questionIndex++; showQuestion(); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+const country = document.getElementById('country');
+const levelSelect = document.getElementById('levelSelect');
+const search = document.getElementById('search');
+
+function filterSubjects() {
+  let count = 0;
+  const level = levelSelect.value;
+  const terms = search.value.toLowerCase().trim();
+
+  document.querySelectorAll('.subject').forEach(card => {
+    const levels = card.dataset.levels.split(',');
+    const okLevel = level === 'All levels' || levels.includes(level);
+    const okSearch = !terms ||
+      card.dataset.name.toLowerCase().includes(terms) ||
+      card.querySelector('h3').textContent.toLowerCase().includes(terms);
+    card.classList.toggle('hidden', !(okLevel && okSearch));
+    if (okLevel && okSearch) count++;
+  });
+
+  document.getElementById('units').classList.toggle('hidden', level !== 'College & University');
+  document.getElementById('noResults').classList.toggle('hidden', count > 0);
+  document.getElementById('curriculumNote').textContent =
+    'Showing starter subjects for ' + country.value +
+    '. Country selection is a starting preference; exact syllabus mapping will be added as the library grows.';
+}
+
+[levelSelect, search, country].forEach(el => el.addEventListener('input', filterSubjects));
+
+document.querySelectorAll('.level').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.level').forEach(x => x.classList.remove('active'));
+    card.classList.add('active');
+    levelSelect.value = card.dataset.level;
+    filterSubjects();
+    document.getElementById('subjects').scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// ---------- Study Bot: pick a unit → read → questions → marks ----------
+const schoolKeys = ['Mathematics', 'Languages', 'Biology', 'Chemistry', 'Physics', 'Computer Studies'];
+const botEl = document.getElementById('bot');
+const botLog = document.getElementById('botLog');
+const botActions = document.getElementById('botActions');
+const READ_SECONDS = 8;
+let botUnit = null, botQs = [], botI = 0, botMarks = 0, botTimer = null;
+
+const shuffle = arr => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+function say(html, who = 'bot') {
+  const d = document.createElement('div');
+  d.className = 'msg ' + who;
+  d.innerHTML = html;
+  botLog.appendChild(d);
+  botLog.scrollTop = botLog.scrollHeight;
+}
+
+function setActions(...nodes) {
+  botActions.innerHTML = '';
+  nodes.forEach(n => botActions.appendChild(n));
+}
+
+function mkBtn(label, cls, fn) {
+  const b = document.createElement('button');
+  b.className = cls;
+  b.textContent = label;
+  b.onclick = fn;
+  return b;
+}
+
+function loadMarks() {
+  try { return JSON.parse(localStorage.getItem('edubridge_marks') || '{}'); }
+  catch (e) { return {}; }
+}
+
+function saveMarks(unit, score, total) {
+  try {
+    const all = loadMarks();
+    const prev = all[unit] || { attempts: 0, best: 0 };
+    const pct = Math.round(score / total * 100);
+    all[unit] = {
+      attempts: prev.attempts + 1,
+      best: Math.max(prev.best, pct),
+      last: score + '/' + total,
+      date: new Date().toLocaleDateString()
+    };
+    localStorage.setItem('edubridge_marks', JSON.stringify(all));
+  } catch (e) { /* storage unavailable: marks just aren't saved */ }
+}
+
+function showPicker() {
+  clearTimeout(botTimer);
+  const sel = document.createElement('select');
+  sel.setAttribute('aria-label', 'Choose a unit');
+  sel.appendChild(new Option('Choose a unit…', ''));
+  [
+    ['School subjects', schoolKeys],
+    ['University & college', Object.keys(lessonData).filter(k => !schoolKeys.includes(k))]
+  ].forEach(([label, keys]) => {
+    const g = document.createElement('optgroup');
+    g.label = label;
+    keys.forEach(k => g.appendChild(new Option(k, k)));
+    sel.appendChild(g);
+  });
+  const go = mkBtn('Start this unit →', 'btn primary', () => { if (sel.value) startUnit(sel.value); });
+  setActions(sel, go, mkBtn('My marks', 'btn secondary', showMarks));
+}
+
+function showMarks() {
+  const all = loadMarks();
+  const keys = Object.keys(all);
+  say('Show me my marks', 'me');
+  if (!keys.length) {
+    say('You have no marks yet. Finish a quiz and your result will appear here.');
+  } else {
+    say('<strong>Your marks on this device</strong>' + keys.map(k =>
+      '<p>' + k + ': last ' + all[k].last + ', best ' + all[k].best + '% (' +
+      all[k].attempts + ' attempt' + (all[k].attempts > 1 ? 's' : '') + ', ' + all[k].date + ')</p>'
+    ).join(''));
+  }
+  showPicker();
+}
+
+function startUnit(key) {
+  botUnit = key;
+  const lesson = lessonData[key];
+  say('I’d like to study ' + key, 'me');
+  say('Great choice! <strong>Step 1: read.</strong> Take your time with this lesson. The questions unlock after ' + READ_SECONDS + ' seconds.');
+  say('<strong>' + lesson.title + '</strong>' + lesson.text);
+
+  let t = READ_SECONDS;
+  const go = mkBtn('', 'btn primary', startQuiz);
+  go.disabled = true;
+  setActions(go, mkBtn('Choose another unit', 'btn secondary', () => { say('Choose another unit', 'me'); say('Sure. Which unit next?'); showPicker(); }));
+  clearTimeout(botTimer);
+  (function tick() {
+    if (t > 0) {
+      go.textContent = 'Keep reading… ' + t + 's';
+      t--;
+      botTimer = setTimeout(tick, 1000);
+    } else {
+      go.disabled = false;
+      go.textContent = 'I’ve read it — start the questions →';
+    }
+  })();
+}
+
+function startQuiz() {
+  botQs = shuffle(lessonData[botUnit].questions);
+  botI = 0;
+  botMarks = 0;
+  say('I’ve read it', 'me');
+  say('<strong>Step 2: questions.</strong> There are ' + botQs.length + ' questions on ' + botUnit + '. Each is worth 1 mark.');
+  askQuestion();
+}
+
+function askQuestion() {
+  const q = botQs[botI];
+  const opts = shuffle(q.a.map((text, i) => ({ text, ok: i === q.correct })));
+  say('<strong>Question ' + (botI + 1) + ' of ' + botQs.length + '</strong><p>' + q.q + '</p>');
+
+  const buttons = opts.map((o, i) => {
+    const b = document.createElement('button');
+    b.className = 'answer';
+    b.textContent = String.fromCharCode(65 + i) + '. ' + o.text;
+    b.onclick = () => {
+      buttons.forEach(x => x.disabled = true);
+      buttons.forEach((x, k) => { if (opts[k].ok) x.classList.add('correct'); });
+      say(b.textContent, 'me');
+      if (o.ok) {
+        botMarks++;
+        say('✅ Correct! +1 mark. ' + clean(q.why));
+      } else {
+        b.classList.add('wrong');
+        say('Not quite, no mark this time. ' + clean(q.why));
+      }
+      const last = botI + 1 >= botQs.length;
+      setActions(mkBtn(last ? 'See my marks →' : 'Next question →', 'btn primary', () => {
+        if (last) showResult(); else { botI++; askQuestion(); }
+      }));
+    };
+    return b;
+  });
+  setActions(...buttons);
+}
+
+function showResult() {
+  const total = botQs.length;
+  const pct = Math.round(botMarks / total * 100);
+  const note = pct >= 80 ? 'Excellent work! 🎉'
+    : pct >= 60 ? 'Good job. A little more revision will make it even better.'
+    : pct >= 40 ? 'Keep practising. Read the lesson again and retry.'
+    : 'Don’t worry. Read the lesson again, then try the questions once more.';
+  saveMarks(botUnit, botMarks, total);
+  say('<strong>Step 3: your marks</strong><p><strong>' + botMarks + ' / ' + total + ' (' + pct + '%)</strong></p><p>' + note + '</p>');
+  setActions(
+    mkBtn('Read the lesson again', 'btn secondary', () => startUnit(botUnit)),
+    mkBtn('Retry the questions', 'btn secondary', startQuiz),
+    mkBtn('Choose another unit', 'btn primary', () => { say('Choose another unit', 'me'); say('Sure. Which unit next?'); showPicker(); })
+  );
+}
+
+function openBot() {
+  botEl.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  if (!botLog.children.length) {
+    say('Hi! I’m your Study Bot 🤖. Choose any unit and I’ll guide you in three steps:<p>1. Read the lesson<br>2. Answer the questions<br>3. Get your marks</p>');
+    say('Which unit would you like to do?');
+    showPicker();
+  }
+}
+
+function closeBot() {
+  botEl.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.open-bot').forEach(b => b.addEventListener('click', openBot));
+document.getElementById('closeBot').onclick = closeBot;
+botEl.addEventListener('click', e => { if (e.target === botEl) closeBot(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBot(); });
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
